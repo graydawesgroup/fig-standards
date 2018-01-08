@@ -5,7 +5,8 @@ HTTP Server Request Handlers Meta Document
 
 The purpose of this PSR is to define formal interfaces for HTTP server request
 handlers ("request handlers") and HTTP server request middleware ("middleware")
-that are compatible with HTTP messages as defined in [PSR-7][psr7].
+that are compatible with HTTP messages as defined in [PSR-7][psr7] or subsequent
+replacement PSRs.
 
 _Note: All references to "request handlers" and "middleware" are specific to
 **server request** processing._
@@ -23,11 +24,11 @@ that works with HTTP messages will have some kind of request handler.
 
 [Middleware][middleware] has existed for many years in the PHP ecosystem. The
 general concept of reusable middleware was popularized by [StackPHP][stackphp].
-Since the release of HTTP messages as a PSR many frameworks have adopted
-middleware the use HTTP message interfaces.
+Since the release of HTTP messages as a PSR, many frameworks have adopted
+middleware that use HTTP message interfaces.
 
 Agreeing on formal request handler and middleware interfaces eliminates several
-problems and provides a number of benefits:
+problems and has a number of benefits:
 
 * Provides a formal standard for developers to commit to.
 * Enables any middleware component to run in any compatible framework.
@@ -87,7 +88,7 @@ adopted this signature, the following commonalities are observed:
 * The middleware is passed 3 arguments during invocation:
   1. A `ServerRequestInterface` implementation.
   2. A `ResponseInterface` implementation.
-  3. A `callable` that receives the request and response to delegate the next middleware.
+  3. A `callable` that receives the request and response to delegate to the next middleware.
 
 [php-callable]: http://php.net/manual/language.types.callable.php
 
@@ -141,7 +142,7 @@ Middleware taking this approach generally has the following commonalities:
 * The middleware is defined with a specific interface with a method that takes
   the request for processing.
 * The middleware is passed 2 arguments during invocation:
-  1. A HTTP request message.
+  1. An HTTP request message.
   2. A request handler to which the middleware can delegate the responsibility
      of producing an HTTP response message.
 
@@ -198,7 +199,7 @@ early adopters of HTTP messages (PSR-7).
 
 ### 5.4 Chosen Approach
 
-Despite the nearly universal adoption of the double-pass approach there are
+Despite the nearly universal adoption of the double-pass approach, there are
 significant issues regarding implementation.
 
 The most severe is that passing an empty response has no guarantees that the
@@ -229,7 +230,7 @@ middleware typically uses the `callable` type hint to refer to middleware.
 This makes strict typing impossible, as there is no assurance that the `callable`
 being passed implements a middleware signature, which reduces runtime safety.
 
-**Due to these significant issues the lambda approach has been choosen for this proposal.**
+**Due to these significant issues, the lambda approach has been chosen for this proposal.**
 
 ## 6. Design Decisions
 
@@ -241,7 +242,7 @@ MUST return a response. The request handler MAY delegate to another handler.
 #### Why is a server request required?
 
 To make it clear that the request handler can only be used in a server side context.
-In an client side context a [promise][promises] would likely be returned instead
+In an client side context, a [promise][promises] would likely be returned instead
 of a response.
 
 [promises]: https://promisesaplus.com/
@@ -253,7 +254,7 @@ request processing, a request handler is the point where the request must be
 acted upon to create a response.
 
 As opposed to the term "delegate", which was used in a previous version of this
-specification, the internal behavior of the this interface is not specified.
+specification, the internal behavior of this interface is not specified.
 As long as the request handler ultimately produces a response, it is valid.
 
 #### Why doesn't request handler use `__invoke`?
@@ -275,11 +276,15 @@ and a request handler and must return a response. The middleware may:
 - Create and return a response without passing the request to the request handler,
   thereby handling the request itself.
 
+It is expected that a middleware dispatching system will use the request handler
+to delegate response creation to the next available middleware. The last middleware
+would then act as a domain gateway to execute application code.
+
 #### Why doesn't middleware use `__invoke`?
 
 Doing so would conflict with existing middleware that implements the double-pass
 approach and may want to implement the middleware interface for purposes of
-forwards compatibility with this specification.
+forward compatibility with this specification.
 
 #### Why the name `process()`?
 
@@ -294,9 +299,9 @@ the following were commonly used:
 [HttpKernel]: https://symfony.com/doc/current/components/http_kernel.html
 [DispatchableInterface]: https://github.com/zendframework/zend-stdlib/blob/980ce463c29c1a66c33e0eb67961bba895d0e19e/src/DispatchableInterface.php
 
-We chose to allow a forwards-compatible approach for such classes to repurpose
+We chose to allow a forward-compatible approach for such classes to repurpose
 themselves as middleware (or middleware compatible with this specification),
-and, as such, needed to choose a name not in common usage. As such, we chose
+and thus needed to choose a name not in common usage. As such, we chose
 `process`, to indicate _processing_ a request.
 
 #### Why is a server request required?
@@ -305,7 +310,7 @@ To make it clear that the middleware can only be used in a synchronous, server
 side context.
 
 While not all middleware will need to use the additional methods defined by the
-server request interface, external requests are typically processed asynchronously
+server request interface, outbound requests are typically processed asynchronously
 and would typically return a [promise][promises] of a response. (This is primarily
 due to the fact that multiple requests can be made in parallel and processed as
 they are returned.) It is outside the scope of this proposal to address the needs
@@ -317,6 +322,51 @@ to define a standard that is specific to the nature of asynchronous middleware.
 
 _See "client vs server side middleware" in [relevant links](#8-relevant-links) for
 additional information._
+
+#### What is the role of the request handler?
+
+Middleware has the following roles:
+
+- Producing a response on its own. If specific request conditions are met, the
+  middleware can produce and return a response.
+
+- Returning the result of the request handler. In cases where the middleware
+  cannot produce its own response, it can delegate to the request handler to
+  produce one; sometimes this may involve providing a transformed request (e.g.,
+  to inject a request attribute, or the results of parsing the request body).
+
+- Manipulating and returning the response produced by the request handler. In
+  some cases, the middleware may be interested in manipulating the response
+  the request handler returns (e.g., to gzip the response body, to add CORS
+  headers, etc.). In such cases, the middleware will capture the response
+  returned by the request handler, and return a transformed response on
+  completion.
+
+In these latter two cases, the middleware may have code such as the following:
+
+```php
+// Straight delegation:
+return $handler->handle($request);
+
+// Capturing the response to manipulate:
+$response = $handler->handle($request);
+```
+
+How the handler acts is entirely up to the developer, so long as it produces a
+response.
+
+In one common scenario, the handler implements a _queue_ or a _stack_ of
+middleware instances internally. In such cases, calling
+`$handler->handle($request)` will advance the internal pointer, pull the
+middleware associated with that pointer, and call it using
+`$middleware->process($request, $this)`. If no more middleware exists, it will
+generally either raise an exception or return a canned response.
+
+Another possibility is for  _routing middleware_ that matches the incoming
+server request to a specific handler, and then returns the response generated by
+executing that handler. If unable to route to a handler, it would instead
+execute the handler provided to the middleware. (This sort of mechanism can even
+be used in conjunction with middleware queues and stacks.)
 
 ## 7. People
 
@@ -333,7 +383,7 @@ This PSR was produced by a FIG Working Group with the following members:
 The working group would also like to acknowledge the contributions of:
 
 * Jason Coward, <jason@opengeek.com>
-* Paul M Jones, <pmjones88@gmail.com>
+* Paul M. Jones, <pmjones88@gmail.com>
 * Rasmus Schultz, <rasmus@mindplay.dk>
 
 ## 8. Votes
