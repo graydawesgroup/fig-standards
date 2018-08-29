@@ -263,7 +263,7 @@ Using `__invoke` is less transparent than using a named method. It also makes
 it easier to call the request handler when it is assigned to a class variable,
 without using `call_user_func` or other less common syntax.
 
-_See "discussion of FrameInterface" in [relevant links](#8-relevant-links) for
+_See "discussion of FrameInterface" in [relevant links](#9-relevant-links) for
  additional information._
 
 ### 6.2 Middleware Design
@@ -323,7 +323,7 @@ Attempting to define client middleware would be premature at this point. Any fut
 proposal that is focused on client side request processing should have the opportunity
 to define a standard that is specific to the nature of asynchronous middleware.
 
-_See "client vs server side middleware" in [relevant links](#8-relevant-links) for
+_See "client vs server side middleware" in [relevant links](#9-relevant-links) for
 additional information._
 
 #### What is the role of the request handler?
@@ -429,7 +429,7 @@ An application bootstrap might then look like this:
 $fallbackHandler = new NotFoundHandler();
 
 // Create request handler instance:
-$app = new QueueResponseHandler($fallbackHandler);
+$app = new QueueRequestHandler($fallbackHandler);
 
 // Add one or more middleware:
 $app->add(new AuthorizationMiddleware());
@@ -621,6 +621,7 @@ The working group would also like to acknowledge the contributions of:
 
 * [Working Group Formation](https://groups.google.com/d/msg/php-fig/rPFRTa0NODU/tIU9BZciAgAJ)
 * [Review Period Initiation](https://groups.google.com/d/msg/php-fig/mfTrFinTvEM/PiYvU2S6BAAJ)
+* [Acceptance](https://groups.google.com/d/msg/php-fig/bhQmHt39hJE/ZCYrK_O2AQAJ)
 
 ## 9. Relevant Links
 

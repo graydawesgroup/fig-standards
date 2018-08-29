@@ -44,9 +44,10 @@ declare(strict_types=1);
 namespace Vendor\Package;
 
 use Vendor\Package\{ClassA as A, ClassB, ClassC as C};
-use Vendor\Package\Namespace\ClassD as D;
+use Vendor\Package\SomeNamespace\ClassD as D;
 
 use function Vendor\Package\{functionA, functionB, functionC};
+
 use const Vendor\Package\{ConstantA, ConstantB, ConstantC};
 
 class Foo extends Bar implements FooInterface
@@ -90,8 +91,7 @@ The closing `?>` tag MUST be omitted from files containing only PHP.
 
 There MUST NOT be a hard limit on line length.
 
-The soft limit on line length MUST be 120 characters; automated style checkers
-MUST warn but MUST NOT error at the soft limit.
+The soft limit on line length MUST be 120 characters.
 
 Lines SHOULD NOT be longer than 80 characters; lines longer than that SHOULD
 be split into multiple subsequent lines of no more than 80 characters each.
@@ -111,6 +111,8 @@ tabs for indenting.
 ### 2.5 Keywords and Types
 
 All PHP reserved keywords and types [[1]][keywords][[2]][types] MUST be in lower case.
+
+Any new types and keywords added to future PHP versions MUST be in lower case.
 
 Short form of type keywords MUST be used i.e. `bool` instead of `boolean`,
 `int` instead of `integer` etc.
@@ -157,7 +159,7 @@ declare(strict_types=1);
 namespace Vendor\Package;
 
 use Vendor\Package\{ClassA as A, ClassB, ClassC as C};
-use Vendor\Package\Namespace\ClassD as D;
+use Vendor\Package\SomeNamespace\ClassD as D;
 use Vendor\Package\AnotherNamespace\ClassE as E;
 
 use function Vendor\Package\{functionA, functionB, functionC};
@@ -181,7 +183,7 @@ following is the maximum compounding depth allowed:
 ~~~php
 <?php
 
-use Vendor\Package\Namespace\{
+use Vendor\Package\SomeNamespace\{
     SubnamespaceOne\ClassA,
     SubnamespaceOne\ClassB,
     SubnamespaceTwo\ClassY,
@@ -193,7 +195,7 @@ And the following would not be allowed:
 ~~~php
 <?php
 
-use Vendor\Package\Namespace\{
+use Vendor\Package\SomeNamespace\{
     SubnamespaceOne\AnotherNamespace\ClassA,
     SubnamespaceOne\ClassB,
     ClassZ,
@@ -366,7 +368,6 @@ class ClassName
 When using the `insteadof` and `as` operators they must be used as follows taking
 note of indentation, spacing and new lines.
 
-
 ~~~php
 <?php
 
@@ -458,8 +459,6 @@ MUST be one space after each comma.
 Method and function arguments with default values MUST go at the end of the argument
 list.
 
-Method and function argument scalar type hints MUST be lowercase.
-
 ~~~php
 <?php
 
@@ -502,7 +501,7 @@ class ClassName
 When you have a return type declaration present there MUST be one space after
 the colon followed by the type declaration. The colon and declaration MUST be
 on the same line as the argument list closing parentheses with no spaces between
-the two characters. The declaration keyword (e.g. string) MUST be lowercase.
+the two characters.
 
 ~~~php
 <?php
@@ -633,7 +632,6 @@ The body of each structure MUST be enclosed by braces. This standardizes how
 the structures look, and reduces the likelihood of introducing errors as new
 lines get added to the body.
 
-
 ### 5.1 `if`, `elseif`, `else`
 
 An `if` structure looks like the following. Note the placement of parentheses,
@@ -655,6 +653,28 @@ if ($expr1) {
 The keyword `elseif` SHOULD be used instead of `else if` so that all control
 keywords look like single words.
 
+Expressions in parentheses MAY be split across multiple lines, where each
+subsequent line is indented at least once. When doing so, the first condition
+MUST be on the next line. The closing parenthesis and opening brace MUST be
+placed together on their own line with one space between them. Boolean
+operators between conditions MUST always be at the beginning or at the end of
+the line, not a mix of both.
+
+~~~php
+<?php
+
+if (
+    $expr1
+    && $expr2
+) {
+    // if body
+} elseif (
+    $expr3
+    && $expr4
+) {
+    // elseif body
+}
+~~~
 
 ### 5.2 `switch`, `case`
 
@@ -685,6 +705,23 @@ switch ($expr) {
 }
 ~~~
 
+Expressions in parentheses MAY be split across multiple lines, where each
+subsequent line is indented at least once. When doing so, the first condition
+MUST be on the next line. The closing parenthesis and opening brace MUST be
+placed together on their own line with one space between them. Boolean
+operators between conditions MUST always be at the beginning or at the end of
+the line, not a mix of both.
+
+~~~php
+<?php
+
+switch (
+    $expr1
+    && $expr2
+) {
+    // structure body
+}
+~~~
 
 ### 5.3 `while`, `do while`
 
@@ -695,6 +732,24 @@ parentheses, spaces, and braces.
 <?php
 
 while ($expr) {
+    // structure body
+}
+~~~
+
+Expressions in parentheses MAY be split across multiple lines, where each
+subsequent line is indented at least once. When doing so, the first condition
+MUST be on the next line. The closing parenthesis and opening brace MUST be
+placed together on their own line with one space between them. Boolean
+operators between conditions MUST always be at the beginning or at the end of
+the line, not a mix of both.
+
+~~~php
+<?php
+
+while (
+    $expr1
+    && $expr2
+) {
     // structure body
 }
 ~~~
@@ -710,6 +765,23 @@ do {
 } while ($expr);
 ~~~
 
+Expressions in parentheses MAY be split across multiple lines, where each
+subsequent line is indented at least once. When doing so, the first condition
+MUST be on the next line. The closing parenthesis and opening brace MUST be
+placed together on their own line. Boolean operators between conditions MUST
+always be at the beginning or at the end of the line, not a mix of both.
+
+~~~php
+<?php
+
+do {
+    // structure body;
+} while (
+    $expr1
+    && $expr2
+);
+~~~
+
 ### 5.4 `for`
 
 A `for` statement looks like the following. Note the placement of parentheses,
@@ -719,6 +791,23 @@ spaces, and braces.
 <?php
 
 for ($i = 0; $i < 10; $i++) {
+    // for body
+}
+~~~
+
+Expressions in parentheses MAY be split across multiple lines, where each
+subsequent line is indented at least once. When doing so, the first expression
+MUST be on the next line. The closing parenthesis and opening brace MUST be
+placed together on their own line with one space between them.
+
+~~~php
+<?php
+
+for (
+    $i = 0;
+    $i < 10;
+    $i++
+) {
     // for body
 }
 ~~~
@@ -758,10 +847,10 @@ try {
 ## 6. Operators
 
 All binary and ternary (but not unary) operators MUST be preceded and followed by at least
-one space. This includes all [arithmetic][], [comparison][], [assignment][], [bitwise][],
-[logical][] (excluding `!` which is unary), [string concatenation][], [type][] operators,
-trait operators (`insteadof` and `as`), and the single pipe operator (e.g.
-`ExceptionType1 | ExceptionType2 $e`).
+one space; multiple spaces MAY be used for readabiliy purpose. This includes all [arithmetic][],
+[comparison][], [assignment][], [bitwise][], [logical][] (excluding `!` which is unary),
+[string concatenation][], [type][] operators, trait operators (`insteadof` and `as`),
+and the single pipe operator (e.g. `ExceptionType1 | ExceptionType2 $e`).
 
 Other operators are left undefined.
 
@@ -890,27 +979,26 @@ $foo->bar(
 Anonymous Classes MUST follow the same guidelines and principles as closures
 in the above section.
 
-
 ~~~php
 <?php
 
 $instance = new class {};
 ~~~
 
-The opening parenthesis MAY be on the same line as the `class` keyword so long as
+The opening brace MAY be on the same line as the `class` keyword so long as
 the list of `implements` interfaces does not wrap. If the list of interfaces
-wraps, the parenthesis MUST be placed on the line immediately following the last
+wraps, the brace MUST be placed on the line immediately following the last
 interface.
 
 ~~~php
 <?php
 
-// Parenthesis on the same line
+// Brace on the same line
 $instance = new class extends \Foo implements \HandleableInterface {
     // Class content
 };
 
-// Parenthesis on the next line
+// Brace on the next line
 $instance = new class extends \Foo implements
     \ArrayAccess,
     \Countable,

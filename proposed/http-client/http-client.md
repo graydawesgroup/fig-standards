@@ -12,24 +12,24 @@ interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 ### Client
 
 An HTTP client has the responsibility to send a PSR-7 request and return a PSR-7
-response. Under the hood, the HTTP client MAY modify the request/response received
-from the user/server. In this case, the request and the response MUST be consistent
-between the body and headers. For example, a
-server may return a gzip encoded body and the client may know how to decode this.
-If it decodes the body, the client MUST also remove the header that specifies the
-encoding and adjust the Content-Length header.
+response. Under the hood, the HTTP client MAY modify the request received from
+the user and/or the response received from the server. In this case, the request
+and the response MUST be consistent between the body and headers. For example, a
+server may return a gzip-encoded body and the client may decide to decode the
+body. If the client decodes the body, the client MUST also remove the
+`Content-Encoding` header and adjust the `Content-Length` header.
 
 ### Exceptions
 
 All exceptions thrown by the client MUST implement `Psr\Http\Client\ClientException`.
 
-When the HTTP client is passed a request that is invalid and cannot be sent, the client
-MUST throw a `Psr\Http\Client\Exception\RequestException`. If there is an error
+When the HTTP client is called with a request that is invalid and cannot be sent, the client
+MUST throw a `Psr\Http\Client\RequestException`. If there is an error
 with the network or the remote server cannot be reached, the HTTP client MUST throw
-a `Psr\Http\Client\Exception\NetworkException`.
+a `Psr\Http\Client\NetworkException`.
 
-Smaller issues, like wrong HTTP versions, that are not blocking the HTTP client from
-sending the request MUST not cause any exception.
+Smaller issues that do not block the client from sending the request (such as
+invalid HTTP versions) MUST NOT result in exceptions.
 
 If the remote server answers with a response that can be parsed into a PSR-7 response,
 the client MUST NOT throw an exception. For example, response status codes in the
@@ -58,29 +58,28 @@ use Psr\Http\Message\ResponseInterface;
 interface ClientInterface
 {
     /**
-     * Sends a PSR-7 request and returns a PSR-7 response. 
-     * 
-     * Every technically correct HTTP response MUST be returned as is, even if it represents a HTTP 
+     * Sends a PSR-7 request and returns a PSR-7 response.
+     *
+     * Every technically correct HTTP response MUST be returned as-is, even if it represents an HTTP
      * error response or a redirect instruction. The only special case is 1xx responses, which MUST
      * be assembled in the HTTP client.
      *
      * The client MAY do modifications to the Request before sending it. Because PSR-7 objects are
      * immutable, one cannot assume that the object passed to ClientInterface::sendRequest() will be the same
-     * object that is actually sent. For example the Request object that is returned by an exception MAY
+     * object that is actually sent. For example, the Request object that is returned by an exception MAY
      * be a different object than the one passed to sendRequest, so comparison by reference (===) is not possible.
-     * 
+     *
      * {@link https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message-meta.md#why-value-objects}
-     * 
+     *
      * @param RequestInterface $request
      *
      * @return ResponseInterface
      *
-     * @throws \Psr\Http\Client\ClientException If an error happens during processing the request.
+     * @throws \Psr\Http\Client\ClientException If an error happens while processing the request.
      */
     public function sendRequest(RequestInterface $request): ResponseInterface;
 }
 ```
-
 
 ### Exception
 
@@ -95,13 +94,11 @@ interface ClientException extends \Throwable
 }
 ```
 
-
 ### RequestException
 
 ```php
-namespace Psr\Http\Client\Exception;
+namespace Psr\Http\Client;
 
-use Psr\Http\Client\ClientException;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -124,13 +121,11 @@ interface RequestException extends ClientException
 }
 ```
 
-
 ### NetworkException
 
 ```php
-namespace Psr\Http\Client\Exception;
+namespace Psr\Http\Client;
 
-use Psr\Http\Client\ClientException;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -152,6 +147,5 @@ interface NetworkException extends ClientException
     public function getRequest(): RequestInterface;
 }
 ```
-
 
 [Liskov]: https://en.wikipedia.org/wiki/Liskov_substitution_principle

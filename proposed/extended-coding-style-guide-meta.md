@@ -16,7 +16,7 @@ to provide a set way that both coding style tools can implement, projects can de
 adherence to and developers can easily relate on between different projects for these
 coding style reducing cognitive friction.
 
-PSR-2 was created based upon the common practices of the PHP FIG projects at the time
+PSR-2 was created based upon the common practices of the PHP-FIG projects at the time
 but ultimately this meant it was a compromise of many of the different projects' guidelines.
 The repercussions of projects changing their coding guidelines to align with PSR-2 (Almost
 all projects do align with PSR-1, even if it is not explicitly stated) were seen to be too
@@ -24,9 +24,7 @@ great (losing git history, huge changesets and breaking existing patches/pull re
 
 PSR-2 required adopters to reformat large amounts of existing code which stifled adoption.
 To help alleviate this issue with PSR-12, we have taken a more prescriptive approach and
-defined the standards for new language features as they are released. We hope that because
-this specification is defined prior to mass amounts of code being written, it will have a
-better chance of being adopted but this is in the hope that it will mean that projects.
+defined the standards for new language features as they are released.
 
 However it is for a lack of wanting to be dictatorial that we will aim to apply PSR-2
 styling, rationale and stances (Described in Section 4, Approaches) in PSR-12 instead of
@@ -88,10 +86,10 @@ have uniform syntax and prevent possible confusion.
 
 ## 4.4. Public Survey
 
-In order to settle things using data, survey was conducted and responses from 142 people 
+In order to settle things using data, survey was conducted and responses from 142 people
 including 17 project representatives were gathered:
 
-### 4.4.1. Fig Representative Results
+### 4.4.1. PHP-FIG Representative Results
 
 | Representative          | Project           | Compound namespaces with a depth of two or more MUST not be used | Header statement grouping and ordering | Declare statements must each be on their own line | Declare statements in PHP files containing markup | Declare statements have no spaces: `declare(strict_types=1);` | Block declare statement formatting | `new` keyword usage, parenthesis required |Return type declaration formatting |Use statement leading slashes disallowed | Block namespace declaration formatting | General operator spacing |Try, Catch, Finally formatting | Anonymous class declaration formatting | Keyword casing, only lower case | Type keywords, short form only |
 | --------------          | -------           | ---------------------------------------------------- | ---------------------------------- | ----------------------------------------- | ------------------------------------------- | -------------------------------------------------------- | ------------------------------- | ------------------------------------- |------------------------------- |------------------------------------ | ----------------------------------- | ---------------------- |--------------------------- | ----------------------------------- | --------------------------- | -------------------------- |
@@ -117,7 +115,7 @@ including 17 project representatives were gathered:
 
 | Question | For | Against | Percentage For |
 | -------- | --- | ------- | -------------- |
-| Compound namespaces required depth | 114 | 12 | 89.47% | 
+| Compound namespaces required depth | 114 | 12 | 89.47% |
 | Header statement grouping and ordering | 113 | 13 | 88.5% |
 | Declare statements must each be on their own line | 120 | 6 | 95% |
 | Declare statements in PHP files containing markup | 119 | 7 | 94.12% |
@@ -175,24 +173,25 @@ specification for a full understanding of its contents.
 # 6. People
 
 ## 6.1.  Editor:
-* **Korvin Szanto**
+* Korvin Szanto
 
 ## 6.2. Sponsor:
-* **Chris Tankersley**
+* Chris Tankersley
 
 ## 6.3. Working Group Members:
-* **Alexander Makarov**
-* **Michael Cullum**
-* **Robert Deutz**
+* Alessandro Lai
+* Alexander Makarov
+* Michael Cullum
+* Robert Deutz
 
 ## 6.4. Special Thanks
-* **Michael Cullum** for drafting the original specification
-* **Alexandar Makarov** for coordinating the draft during FIG 2.0
-* **Cees-Jan Kiewiet** for moral support
+* Michael Cullum for drafting the original specification
+* Alexandar Makarov for coordinating the draft during PHP-FIG 2.0
+* Cees-Jan Kiewiet for moral support
 
 # 7. Votes
 
-* **Entrance Vote: ** https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/php-fig/P9atZLOcUBM/_jwkvlYKEAAJ
+* **Entrance Vote:** https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!msg/php-fig/P9atZLOcUBM/_jwkvlYKEAAJ
 
 # 8. Relevant Links
 

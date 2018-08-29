@@ -6,9 +6,9 @@
 
 | Name                                  | Term                    |
 |---------------------------------------|-------------------------|
-| Michael Cullum ([@michaelcullumuk])   | 2016-01-31 - 2018-01-31 |
-| Alessandro Lai ([@AlessandroLai])     | 2017-11-12 - 2018-08-31 |
 | Margret Staples ([@dead_lugosi])      | 2017-11-12 - 2019-05-31 |
+| Ian Littman ([@iansltx])              | 2018-08-26 - 2020-01-31 |
+| Alessandro Lai ([@AlessandroLai])     | 2017-11-12 - 2020-08-31 |
 
 Feel free to contact the secretaries at info AT php-fig.org. For more information on the secretaries' role, see the [bylaws](http://www.php-fig.org/bylaws/mission-and-structure/#secretaries).
 
@@ -17,18 +17,18 @@ Feel free to contact the secretaries at info AT php-fig.org. For more informatio
 
 | Name                                  | Term                    |
 |---------------------------------------|-------------------------|
-| Beau Siemensen ([@beausimensen])      | 2016-12-24 - 2019-04-30 |
+| Beau Simensen ([@beausimensen])       | 2016-12-24 - 2019-04-30 |
 | Larry Garfield ([@Crell])             | 2016-12-24 - 2019-04-30 |
 | Matthew Weier O'Phinney ([@mwop])     | 2016-12-24 - 2019-04-30 |
 | Sara Golemon ([@SaraMG])              | 2016-12-24 - 2019-04-30 |
-| Cees-Jan Kiewiet ([@WyriHaximus])     | 2016-12-24 - 2018-08-31 |
-| Gary Hockin ([@GeeH])                 | 2016-12-24 - 2018-08-31 |
-| Lukas Kahwe Smith ([@lsmith])         | 2016-12-24 - 2018-08-31 |
-| Samantha Quiñones ([@ieatkillerbees]) | 2016-12-24 - 2018-08-31 |
-| Chris Tankersley ([@dragonmantank])   | 2016-12-24 - 2018-01-31 |
-| Graham Hoefer ([@greydnls])           | 2016-12-24 - 2018-01-31 |
-| Korvin Szanto ([@korvinszanto])       | 2016-12-24 - 2018-01-31 |
-| Stefano Torresi ([@storresi])         | 2016-12-24 - 2018-01-31 |
+| Cees-Jan Kiewiet ([@WyriHaximus])     | 2016-12-24 - 2020-08-31 |
+| Lukas Kahwe Smith ([@lsmith])         | 2016-12-24 - 2020-08-31 |
+| Samantha Quiñones ([@ieatkillerbees]) | 2016-12-24 - 2020-08-31 |
+| Chris Tankersley ([@dragonmantank])   | 2016-12-24 - 2020-01-31 |
+| Korvin Szanto ([@korvinszanto])       | 2016-12-24 - 2020-01-31 |
+| Stefano Torresi ([@storresi])         | 2016-12-24 - 2020-01-31 |
+| Michael Cullum ([@michaelcullumuk])   | 2018-01-28 - 2020-01-31 |
+| Chuck Burgess ([@ashnazg])            | 2018-08-26 - 2020-08-31 |
 
 
 ### Member Projects
@@ -47,9 +47,10 @@ Feel free to contact the secretaries at info AT php-fig.org. For more informatio
 | [Jackalope]                       | Lukas Kahwe Smith ([@lsmith])         |
 | [Joomla]                          | Robert Deutz ([@rdeutz])              |
 | [Lithium]                         | Nate Abele ([@nateabele])             |
-| [Magento]                         | Ben Marks ([@benmarks])               |
+| [Magento]                         | Anton Kril ([@AntonKril])             |
 | [PEAR]                            | Chuck Burgess ([@ashnazg])            |
-| [Phalcon]                         | Andres Gutierrez ([@phalconphp])      |
+| [Phalcon]                         | Nikolaos Dimopoulos ([@phalconphp])   |
+| [Phergie]                         | Joe Ferguson ([@joepferguson])        |
 | [Phing]                           | Michiel Rook ([@michieltcs])          |
 | [phpBB]                           | Marc Alexander ([@marc1706])          |
 | [phpDocumentor]                   | Mike van Riel ([@mvriel])             |
@@ -84,13 +85,16 @@ Feel free to contact the secretaries at info AT php-fig.org. For more informatio
 | Joe Ferguson ([@joepferguson])        | 2016-01-31 - 2016-06-29 |
 | Samantha Quiñones ([@ieatkillerbees]) | 2016-02-28 - 2016-12-24 |
 | Amanda Folson ([@ambassadorawsum])    | 2016-08-28 - 2017-11-12 |
+| Michael Cullum ([@michaelcullumuk])   | 2016-01-31 - 2018-01-31 |
+| Mark Railton ([@railto])              | 2018-01-28 - 2018-06-05 |
 
 
 ### Former Core Committee Members
 
 | Name                                  | Term                    |
 |---------------------------------------|-------------------------|
-| TBD                                   |                         |
+| Graham Hoefer ([@greydnls])           | 2016-12-24 - 2018-01-31 |
+| Gary Hockin ([@GeeH])                 | 2016-12-24 - 2018-04-04 |
 
 
 ### Former Member Projects
@@ -112,9 +116,9 @@ Feel free to contact the secretaries at info AT php-fig.org. For more informatio
 [@AlessandroLai]: https://twitter.com/AlessandroLai
 [@ambassadorawsum]: https://twitter.com/ambassadorawsum
 [@andrerom]: https://twitter.com/andrerom
+[@AntonKril]: https://twitter.com/AntonKril
 [@ashnazg]: https://twitter.com/ashnazg
 [@beausimensen]: https://twitter.com/beausimensen
-[@benmarks]: https://twitter.com/benmark
 [@bernhard_rusch]: https://twitter.com/bernhard_rusch
 [@bretterer]: https://twitter.com/bretterer
 [@couac]: https://twitter.com/couac
@@ -137,6 +141,7 @@ Feel free to contact the secretaries at info AT php-fig.org. For more informatio
 [@kdambekalns]: https://twitter.com/kdambekalns
 [@korvinszanto]: https://twitter.com/korvinszanto
 [@kriswallsmith]: https://twitter.com/kriswallsmith
+[@iansltx]: https://twitter.com/iansltx
 [@leofeyer]: https://twitter.com/leofeyer
 [@lsmith]: https://twitter.com/lsmith
 [@marc1706]: https://twitter.com/marc1706
@@ -149,6 +154,7 @@ Feel free to contact the secretaries at info AT php-fig.org. For more informatio
 [@phalconphp]: https://twitter.com/phalconphp
 [@PhpNut]: https://twitter.com/PhpNut
 [@pmjones]: https://twitter.com/pmjones
+[@railto]: https://twitter.com/railto
 [@rdeutz]: https://twitter.com/rdeutz
 [@RyanThePyro]: https://twitter.com/RyanThePyro
 [@sam_dark]: https://twitter.com/sam_dark
@@ -187,6 +193,7 @@ Feel free to contact the secretaries at info AT php-fig.org. For more informatio
 [Neos]: http://neos.io
 [PEAR]: http://pear.php.net
 [Phalcon]: http://www.phalconphp.com
+[Phergie]: https://www.phergie.org
 [Phing]: http://www.phing.info
 [phpBB]: http://www.phpbb.com
 [phpDocumentor]: http://www.phpdoc.org
